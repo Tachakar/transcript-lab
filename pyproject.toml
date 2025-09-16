@@ -1,0 +1,12 @@
+[project]
+name = "transribe-lab"
+version = "0.1"
+readme = "README.md"
+license = "MIT"
+dependencies = [
+  "dotenv",
+  "faster-whisper",
+  "google-api-python-client",
+  "pydantic-settings",
+]
+
