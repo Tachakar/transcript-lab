@@ -11,7 +11,5 @@ def fetch_metadata():
         videoLicense = "creativeCommon",
         maxResults = 2
     )
-    data = request.execute()
-    print(data)
+    return request.execute()
 
-fetch_metadata()
