@@ -8,3 +8,6 @@
 # cache
 __pycache__/
 *.pyc
+
+# dev test
+dev_test.py

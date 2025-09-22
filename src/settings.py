@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv()
+MARKERS = ['requirements.txt', 'pyproject.toml', '.git', 'README.md']
 
 def get_root_path():
     root = Path(__file__)
-    MARKERS = ['requirements.txt', 'pyproject.toml', '.git', 'README.md']
 
     try:
         x = subprocess.run(["git", "rev-parse", "--show-toplevel"],capture_output=True,text=True,check=True)
@@ -31,19 +31,25 @@ def get_root_path():
 
     return root
 
-
 class Settings(BaseSettings):
 
-    @staticmethod
-    def check_or_create_path(path:Path):
-        if path.exists():
-            return
-        path.mkdir(parents=True, exist_ok=True)
-        return
-
+    # Keys
     youtube_api_key: str
 
+    # Paths
+    # WHILE ADDING NEW PATH MAKE SURE IT HAS "PATH" IN NAME
     PROJECT_ROOT_PATH: Path = get_root_path()
     DATA_DIR_PATH: Path = PROJECT_ROOT_PATH/"data"
+    AUDIO_DIR_PATH: Path =DATA_DIR_PATH/"audio"
+    TRANSCRIPTS_DIR_PATH: Path = DATA_DIR_PATH/"transcripts"
+    RAW_TRANSCRIPTS_DIR_PATH: Path = TRANSCRIPTS_DIR_PATH/"raw"
+    CLEAN_TRANSCRIPTS_DIR_PATH: Path = TRANSCRIPTS_DIR_PATH/"clean"
 
-settings = Settings()
+def prepare_dirs(settings: Settings):
+    try:
+        for name, value in settings.__dict__.items():
+            if isinstance(value,Path):
+                path = Path(value)
+                path.mkdir(parents=True, exist_ok = True)
+    except Exception as e:
+        logging.warning(f"Something went wrong. LOG: {e}")
