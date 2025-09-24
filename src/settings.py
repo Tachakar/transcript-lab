@@ -37,7 +37,6 @@ class Settings(BaseSettings):
     youtube_api_key: str
 
     # Paths
-    # WHILE ADDING NEW PATH MAKE SURE IT HAS "PATH" IN NAME
     PROJECT_ROOT_PATH: Path = get_root_path()
     DATA_DIR_PATH: Path = PROJECT_ROOT_PATH/"data"
     AUDIO_DIR_PATH: Path =DATA_DIR_PATH/"audio"
@@ -45,9 +44,10 @@ class Settings(BaseSettings):
     RAW_TRANSCRIPTS_DIR_PATH: Path = TRANSCRIPTS_DIR_PATH/"raw"
     CLEAN_TRANSCRIPTS_DIR_PATH: Path = TRANSCRIPTS_DIR_PATH/"clean"
 
+
 def prepare_dirs(settings: Settings):
     try:
-        for name, value in settings.__dict__.items():
+        for _, value in settings:
             if isinstance(value,Path):
                 path = Path(value)
                 path.mkdir(parents=True, exist_ok = True)

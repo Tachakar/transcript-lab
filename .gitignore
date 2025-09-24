@@ -9,5 +9,5 @@
 __pycache__/
 *.pyc
 
-# dev test
-dev_test.py
+# data
+data/
