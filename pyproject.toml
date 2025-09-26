@@ -8,5 +8,6 @@ dependencies = [
   "faster-whisper",
   "google-api-python-client",
   "pydantic-settings",
+  "yt-dlp",
 ]
 

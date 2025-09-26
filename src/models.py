@@ -8,4 +8,4 @@ class Transcript():
         self.end = end
 
     def get_len(self):
-        return len(self.text)
+        return (self.end-self.start)
